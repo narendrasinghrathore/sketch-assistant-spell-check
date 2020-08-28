@@ -10,8 +10,9 @@
     "outDir": "./dist",
     "target": "es6",
     "module": "CommonJS",
-    "declaration": true
+    "declaration": true,
+    "noImplicitAny": true
   },
-  "include": ["./src"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

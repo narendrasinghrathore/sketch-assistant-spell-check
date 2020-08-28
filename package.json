@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "test": "jest --no-cache",
-    "build": "rm -rf dist && npm run build:node && npm run build:sketch",
+    "build": "del -rf dist && npm run build:node && npm run build:sketch",
     "build:node": "tsc",
     "build:sketch": "webpack",
     "package-tarball": "npm run build && npm pack"
@@ -44,6 +44,7 @@
     "webpack-cli": "3.3.12"
   },
   "dependencies": {
-    "@sketch-hq/sketch-assistant-types": "6.0.0"
+    "@sketch-hq/sketch-assistant-types": "6.0.0",
+    "simple-spellchecker": "^1.0.0"
   }
 }
