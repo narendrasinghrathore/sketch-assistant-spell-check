@@ -5,6 +5,7 @@ module.exports = {
   target: 'web',
   mode: 'production',
   entry: './dist/index',
+  node: { fs: 'empty' },
   output: {
     filename: 'sketch.js',
     path: path.resolve(process.cwd(), 'dist'),
