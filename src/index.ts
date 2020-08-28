@@ -3,7 +3,7 @@ import {
   RuleDefinition,
 } from '@sketch-hq/sketch-assistant-types'
 
-const spell = require('simple-spellchecker');
+import * as spell from 'simple-spellchecker';
 
 const dictionary = spell.getDictionarySync('en-US');
 const textNoLoremIpsum: RuleDefinition = {
