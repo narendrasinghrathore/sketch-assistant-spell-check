@@ -1,5 +1,5 @@
 {
-  "name": "sketch-assistant-template",
+  "name": "sketch-assistant",
   "homepage": "https://github.com/sketch-hq/sketch-assistant-template",
   "version": "1.0.0",
   "main": "dist/index.js",

@@ -13,36 +13,50 @@ const list = data.list;
 const suggestionList = (word: string, maxWords: number = 5): string[] => {
 
   const similarWords: string[] = [];
-  if (!word) return [];
-  console.time('searching');
-  list.forEach((item: string, index: number) => {
 
-    const itemFound = item.toLowerCase().indexOf(word);
-    if (itemFound >= 0) {
-      similarWords.push(list[index]);
+  if (!word) return [];
+
+  list.slice(list.indexOf(word.charAt(0))).forEach((item: string, index: number, array) => {
+
+    const itemFound = item.toLowerCase().startsWith(word.toLowerCase());
+
+    if (itemFound) {
+      similarWords.push(array[index]);
     }
+
   });
-  console.timeLog('searching');
-  console.timeEnd('searching');
+
   return similarWords.slice(0, maxWords);
 }
 
 const textNoLoremIpsum: RuleDefinition = {
   rule: async (context) => {
+
     const { utils } = context
+
     // Iterate
     for (const layer of utils.objects.text) {
-      const word = layer.attributedString.string;
-      const value = word.toLowerCase();
+
+      const words = layer.attributedString.string;
+      const values = words.split(" ");
+
       // Test
-      const misspelled = list.indexOf(value) >= 0 ? false : true;
-      const suggestions: string[] = [];
-      // Report
-      if (misspelled) {
-        suggestions.push(...suggestionList(value, 10));
-        // Return suggestion(s) for word 
-        utils.report(`Layer “${layer.name}” contains incorrect spelling.${suggestions.length > 0 ? ' Did you mean :' + suggestions.join(", ") : ''}`, layer)
-      }
+      let misspelled;
+      values.forEach((word) => {
+
+        misspelled = list.find(w => w.toLowerCase() === word.toLowerCase()) !== undefined ? false : true;
+
+        const suggestions: string[] = [];
+
+        // Report
+        if (misspelled) {
+          suggestions.push(...suggestionList(word, 10));
+          // Return suggestion(s) for word 
+          utils.report(`Layer [${layer.name}] contains incorrect spelling -> "${word}".${suggestions.length > 0 ? ' Did you mean : ' + suggestions.join(", ") : ''}`, layer)
+        }
+
+      });
+
     }
   },
   name: 'sketch-assistant/spell-check',
