@@ -5,6 +5,8 @@ import {
 import data from './data/data.json';
 const list = data.list;
 
+const specialCharacters = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', "^", "_", '`', '{', '|', '}', '~'];
+
 /**
  * Get similrar word suggesstion for given word. 
  * @param word The word you searched for
@@ -40,20 +42,36 @@ const textNoLoremIpsum: RuleDefinition = {
       const words = layer.attributedString.string;
       const values = words.split(" ");
 
-      // Test
-      let misspelled;
       values.forEach((word) => {
 
-        misspelled = list.find(w => w.toLowerCase() === word.toLowerCase()) !== undefined ? false : true;
+        // Check if we not testing a blank value, if yes return from here.
+        if (!word) return;
 
-        const suggestions: string[] = [];
 
-        // Report
-        if (misspelled) {
-          suggestions.push(...suggestionList(word, 10));
-          // Return suggestion(s) for word 
-          utils.report(`Layer [${layer.name}] contains incorrect spelling -> "${word}".${suggestions.length > 0 ? ' Did you mean : ' + suggestions.join(", ") : ''}`, layer)
-        }
+
+        // Lowercase the word and check if the string end with "." i.e. and remove if yes
+        const transformedWord = word.toLowerCase().trim().replace(/\.$/, "");
+
+        // Check if not a number
+        if (!isNaN(word as any)) return;
+
+        // Check if not a special character
+        if (specialCharacters.indexOf(transformedWord) !== -1) return;
+
+        (async () => {
+          const misspelled = list.find(w => w.toLowerCase() === transformedWord) !== undefined ? false : true;
+
+          const suggestions: string[] = [];
+
+          // Report
+          if (misspelled) {
+            suggestions.push(...suggestionList(transformedWord, 10));
+            // Return suggestion(s) for word 
+            utils.report(`${word} seems spelled incorrectly.${suggestions.length > 0 ? ' Did you mean : ' + suggestions.join(", ") : ''} `, layer)
+          }
+        })();
+
+
 
       });
 

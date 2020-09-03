@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "test": "jest --no-cache",
-    "build": "del -rf dist && npm run build:node && npm run build:sketch",
+    "build": "rmdir /s/q dist && npm run build:node && npm run build:sketch",
     "build:node": "tsc",
     "build:sketch": "webpack",
     "package-tarball": "npm run build && npm pack"
