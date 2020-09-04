@@ -40,9 +40,11 @@ const textNoLoremIpsum: RuleDefinition = {
     for (const layer of utils.objects.text) {
 
       const words = layer.attributedString.string;
-      const values = words.trim().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "").split(" ");
+      const values = words.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, " ").trim().split(" ");
 
       values.forEach((word) => {
+
+        word = word.trim();
 
         // Check if we not testing a blank value, if yes return from here.
         if (!word) return;
