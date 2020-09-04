@@ -44,6 +44,12 @@ const textNoLoremIpsum: RuleDefinition = {
 
       values.forEach((word) => {
 
+        /**
+         * For example: 
+         * #Text/#Sample$ will be
+         * ['Text',' ',' ', 'Sample']
+         * " ".trim() will return ""
+         */
         word = word.trim();
 
         // Check if we not testing a blank value, if yes return from here.
