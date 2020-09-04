@@ -40,7 +40,7 @@ const textNoLoremIpsum: RuleDefinition = {
     for (const layer of utils.objects.text) {
 
       const words = layer.attributedString.string;
-      const values = words.split(" ");
+      const values = words.trim().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "").split(" ");
 
       values.forEach((word) => {
 
@@ -50,7 +50,7 @@ const textNoLoremIpsum: RuleDefinition = {
 
 
         // Lowercase the word and check if the string end with "." i.e. and remove if yes
-        const transformedWord = word.toLowerCase().trim().replace(/\.$/, "");
+        const transformedWord = word.toLowerCase();
 
         // Check if not a number
         if (!isNaN(word as any)) return;
@@ -78,7 +78,7 @@ const textNoLoremIpsum: RuleDefinition = {
     }
   },
   name: 'sketch-assistant/spell-check',
-  title: 'Text should not spelling mistake(s)',
+  title: 'Spelling Error(s)',
   description:
     'Reports a violation when text layers contain incorrect spelling(s)',
 }
