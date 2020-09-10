@@ -40,7 +40,8 @@ const textNoLoremIpsum: RuleDefinition = {
     for (const layer of utils.objects.text) {
 
       const words = layer.attributedString.string;
-      const values = words.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, " ").trim().split(" ");
+      const values = words
+        .replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, " ").replace(/\n/gi, " ").trim().split(" ");
 
       values.forEach((word) => {
 
@@ -75,7 +76,7 @@ const textNoLoremIpsum: RuleDefinition = {
           if (misspelled) {
             suggestions.push(...suggestionList(transformedWord, 10));
             // Return suggestion(s) for word 
-            utils.report(`${word} seems spelled incorrectly.${suggestions.length > 0 ? ' Did you mean : ' + suggestions.join(", ") : ''} `, layer)
+            utils.report(`${word}${suggestions.length > 0 ? '. Did you mean : ' + suggestions.join(", ") : ''}`, layer)
           }
         })();
 
