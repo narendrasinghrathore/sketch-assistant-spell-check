@@ -1,5 +1,5 @@
 {
-  "name": "sketch-assistant",
+  "name": "sketch-spellcheck-assistant",
   "homepage": "https://github.com/narendrasinghrathore/sketch-assistant-spell-check",
   "version": "1.0.0",
   "main": "dist/index.js",
@@ -26,10 +26,12 @@
   ],
   "scripts": {
     "test": "jest --no-cache",
-    "build": "rmdir /s/q dist && npm run build:node && npm run build:sketch",
+    "build": "rm -rf /s/q dist && npm run build:node && npm run build:sketch",
+    "build-windows": "rmdir /s/q dist && npm run build:node && npm run build:sketch",
     "build:node": "tsc",
     "build:sketch": "webpack",
-    "package-tarball": "npm run build && npm pack"
+    "package-tarball": "npm run build && npm pack",
+    "ptw":"npm run build-windows && npm pack"
   },
   "devDependencies": {
     "@sketch-hq/sketch-assistant-utils": "6.0.0",
@@ -46,8 +48,6 @@
     "webpack-cli": "3.3.12"
   },
   "dependencies": {
-    "@sketch-hq/sketch-assistant-types": "6.0.0",
-    "@skpm/fs": "^0.2.6",
-    "simple-spellchecker": "^1.0.0"
+    "@sketch-hq/sketch-assistant-types": "6.0.0"
   }
 }
