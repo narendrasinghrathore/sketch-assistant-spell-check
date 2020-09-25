@@ -12,10 +12,8 @@ test('spell-check-test: test', async () => {
     resolve(__dirname, fileName),
     Assistant,
   )
-  console.log(violations)
   const message = violations && violations[0]?.message;
   if (!message) return;
-  // expect(message).toMatch(validateWith);
   expect(ruleErrors).toHaveLength(0)
 })
 
@@ -24,10 +22,8 @@ test('spell-check-test: Sample 1', async () => {
     resolve(__dirname, sample1),
     Assistant,
   )
-  console.log(violations)
   const message = violations && violations[0]?.message;
   if (!message) return;
-  // expect(message).toMatch(validateWith);
   expect(ruleErrors).toHaveLength(0)
 })
 
@@ -37,10 +33,8 @@ test('spell-check-test: Sample 2', async () => {
     resolve(__dirname, sample2),
     Assistant,
   )
-  console.log(violations)
   const message = violations && violations[0]?.message;
   if (!message) return;
-  // expect(message).toMatch(validateWith);
   expect(ruleErrors).toHaveLength(0)
 })
 
@@ -49,10 +43,8 @@ test('spell-check-test: Sample 3', async () => {
     resolve(__dirname, sample3),
     Assistant,
   )
-  console.log(violations)
   const message = violations && violations[0]?.message;
   if (!message) return;
-  // expect(message).toMatch(validateWith);
   expect(ruleErrors).toHaveLength(0)
 })
 
